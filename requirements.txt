@@ -1,5 +1,5 @@
 pytest==7.4.3
-selene>=2.0.0rc4
+selene==2.0.0rc4
 selenium==4.16.0
 pydantic==2.5.3
 pydantic-settings
