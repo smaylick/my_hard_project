@@ -1,20 +1,22 @@
-from selene import browser
+import allure
+from pages.favorite_page import favorite_page
+from pages.main_page import main_page
 
-from module.pop_up import close_pop_up
 
-
-def test_item_add_and_delete_favorites(browser_management):
-    browser.open('/')  # захожу на сайт
-    browser.element('[href*="login"]').click()  # кликаю на кнопку "Войти" в правой верхней части сайта
-    browser.element('[name="email"]').type('taullessafunnoi-4696@yopmail.com')  # ввожу валидный логин
-    browser.element('[type="submit"][class*="Button-module"]').click()  # кликаю на кнопку "Продолжить"
-    browser.element('[name="pwd"]').type('verynicepassword')  # ввожу валидный пароль
-    browser.element('.Button-module__button_2hpyT').click()  # кликаю на кнопку "Войти"
-    close_pop_up()  # закрываю окно, которое всплывает
-    browser.element('.SearchForm-module__input_2AIbu').type('слово пацана').press_enter()  # ищу в поиске книгу
-    browser.element('[href*="68307263"]').click()  # открываю страничку с книгой
-    browser.element(
-        '[class*="adaptive"] [class="FunctionalButton-module__funcButtonContent_-igzJ"]').click()  # добавляю книгу в "Избранное"
-    browser.element('[role="tab-favorite"]').click()  # кликаю на кнопку Избранное
-    browser.element('[class*="dropdown-dots"]').click()  # открываю экшн-меню сущности
-    browser.element('[class*="art-buttons__drop"]').click()  # удаляю товар из отложенного
+class TestFavorites:
+    @allure.title("Adding and removing a book to favorites")
+    def test_item_add_and_delete_favorites(self, browser_management):
+        with allure.step("Successful authorization"):
+            main_page.authorization_success()
+        with allure.step("Book search"):
+            favorite_page.find_item()
+        with allure.step("Open product page"):
+            favorite_page.open_page_item()
+        with allure.step("Click add to favorites"):
+            favorite_page.click_add_to_favorites()
+        with allure.step("Open favorites"):
+            favorite_page.open_favorites()
+        with allure.step("Open item action menu"):
+            favorite_page.open_action_menu_item()
+        with allure.step("Clear favorites"):
+            favorite_page.clear_favorites()
