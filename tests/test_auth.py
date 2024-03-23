@@ -5,7 +5,7 @@ from test_data.user_data import VALID_CREDENTIALS, INVALID_CREDENTIALS
 
 class TestAuthorization:
 
-    @allure.title("Successful authorization")
+    @allure.title("Successful authorization") # коммент для теста
     def test_authorization_successful(self, browser_management):
         with allure.step("Open main page"):
             main_page.open_main_page()
